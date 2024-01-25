@@ -57,7 +57,7 @@ celcius_tempt = (temp_farahniehite - 32) *5/9
 
 print = input(celcius_tempt)
 
-# #convert the number into minutes and seconds
+ #convert the number into minutes and seconds
 
 num = int(input("Enter a number which changes into minutes:"))
 
