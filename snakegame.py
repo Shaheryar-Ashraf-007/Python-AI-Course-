@@ -34,7 +34,7 @@ score_msg_size = score_font.size("score")
 background_color=pygame.Color(0,0,0)  #we will fill black color as a background
 black=pygame.Color(0,0,0)  
 #for the clock at the left corner 
-game_clock= pygame.time.Clock
+game_clock = pygame.time.Clock()
 def checkCollision(posA,AS,posB,BS):  #AS is the size of a and BS is the size of b
     if (posA.x<posB.x+BS and posA.x+AS> posB.x and posA.y <posB.y+BS and posA.y+AS >posB.y):
         return True
@@ -172,11 +172,11 @@ def getkey():
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 return (KEY["UP"])
-        elif event.key==pygame.K_DOWN:
+            elif event.key==pygame.K_DOWN:
                 return (KEY["DOWN"])
-        elif event.key==pygame.K_LEFT:
+            elif event.key==pygame.K_LEFT:
                 return (KEY["LEFT"])
-        elif event.key==pygame.K_RIGHT:
+            elif event.key==pygame.K_RIGHT:
                 return (KEY["RIGHT"])
             # FOR EXIST 
             

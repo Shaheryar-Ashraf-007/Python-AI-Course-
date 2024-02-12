@@ -147,7 +147,7 @@ result = sqaure(num)
 
 def reverse_string(input_string):
     return input_string[::-1]
-original_string = ("hello world")
+original_string =input("Enter your word that you want to reverse the string")
 reversed_string = reverse_string(original_string)
 print = input(original_string)
 print = input(reversed_string)
@@ -234,7 +234,7 @@ else:
     print = input("it is not a palindrome")
     
     
-    #create a game of stone paper seecor 
+    ##create a game of stone paper seecor 
 
 import random
 while True:
