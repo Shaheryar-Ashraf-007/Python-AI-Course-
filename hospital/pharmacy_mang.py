@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb.connections
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -10,8 +10,8 @@ class HOSPITAL():
         self.root.geometry("1540x800+0+0")
         
         #"nameoftable", "ref", "dose", "nooftablets", "lot", "issuedate", "expdate", "dailydose", "nhsnumber", "storage", "pname", "dob", "address"
-        self.NameofTablet = StringVar()
-        self.Reference_NO = StringVar()
+        self.NameofTablets = StringVar()
+        self.ReferenceNO = StringVar()
         self.Dose = StringVar()
         self.NoofTablets = StringVar()
         self.LOT = StringVar()
@@ -54,13 +54,13 @@ class HOSPITAL():
         
         lblNameTalet = Label(dataframeLeft, text="Name of Tablet:", font=("arial", 12, "bold"), padx=2, pady=6)
         lblNameTalet.grid(row=0, column=0)
-        comNametable = ttk.Combobox(dataframeLeft, state="readonly", textvariable=self.NameofTablet, font=("arial", 12, "bold"), width=33)
+        comNametable = ttk.Combobox(dataframeLeft, state="readonly", textvariable=self.NameofTablets, font=("arial", 12, "bold"), width=33)
         comNametable["values"] = ("Nice", "Corona vaccine", "maleria vaccine", "polio vaccine", "medicines", "ASOZEN FORTE", " Aceclofenac ", " paracetamol", "  Chlorzoxazone", "Amoxible", " Amoxycillin", "MEF Plus", "Mefenamic Acid", " Paracetamol", "NIMSE", " Nimesulid", "Parazex", "Paracetamol")
         comNametable.grid(row=0, column=1)
         
         lblNameref = Label(dataframeLeft, text="Reference NO", font=("arial", 12, "bold"), padx=2)
         lblNameref.grid(row=1, column=0, sticky=W)
-        txtref = Entry(dataframeLeft, textvariable=self.Reference_NO, font=("arial", 13, "bold"), width=35)
+        txtref = Entry(dataframeLeft, textvariable=self.ReferenceNO, font=("arial", 13, "bold"), width=35)
         txtref.grid(row=1, column=1)
         
         lblDose = Label(dataframeLeft, text="Dose:", font=("arial", 12, "bold"), padx=6, pady=4)
@@ -108,7 +108,7 @@ class HOSPITAL():
         txtbloodPressure = Entry(dataframeLeft, textvariable=self.BloodPressure, font=("arial", 13, "bold"), width=35)
         txtbloodPressure.grid(row=1, column=3)
         
-        lblMeddicine = Label(dataframeLeft, text="Storage:", font=("arial", 12, "bold"), padx=2, pady=6)
+        lblMeddicine = Label(dataframeLeft, text="Medicine:", font=("arial", 12, "bold"), padx=2, pady=6)
         lblMeddicine.grid(row=2, column=2)
         txtMedicine = Entry(dataframeLeft, textvariable=self.Meddicine, font=("arial", 13, "bold"), width=35)
         txtMedicine.grid(row=2, column=3)
@@ -143,22 +143,22 @@ class HOSPITAL():
         self.txtPrescription.grid(row=0, column=0)
         
         #=================================buttons===============================
-        btnPrescription = Button(Buttonframe,command=self.Prescription, text="Prescription", font=("arial", 12, "bold"), bg="green", fg="white", width=21, height=2,)
+        btnPrescription = Button(Buttonframe, text="Prescription", font=("arial", 12, "bold"), bg="green", fg="white", width=21, height=2, command=self.PrescriptionData)
         btnPrescription.grid(row=0, column=0)
 
-        btnPrescriptionData = Button(Buttonframe,command=self.PrescriptionData, text="Prescription Data", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
+        btnPrescriptionData = Button(Buttonframe, text="Prescription Data", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
         btnPrescriptionData.grid(row=0, column=1)
 
-        btnUpdate = Button(Buttonframe,command=self.update, text="Update", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
+        btnUpdate = Button(Buttonframe, text="Update", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
         btnUpdate.grid(row=0, column=2)
 
-        btnDelete = Button(Buttonframe,command=self.idelete, text="Delete", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
+        btnDelete = Button(Buttonframe, text="Delete", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
         btnDelete.grid(row=0, column=3)
 
-        btnClear = Button(Buttonframe,command= self.clear, text="Clear", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
+        btnClear = Button(Buttonframe, text="Clear", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
         btnClear.grid(row=0, column=4)
 
-        btnExit = Button(Buttonframe, command=self.iExit, text="Exit", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
+        btnExit = Button(Buttonframe, text="Exit", bg="green", fg="white", font=("arial", 12, "bold"), width=21, height=2)
         btnExit.grid(row=0, column=5)
 
         # =============table================================
@@ -166,7 +166,7 @@ class HOSPITAL():
 
         scroll_x = ttk.Scrollbar(Detailsframe, orient=HORIZONTAL)
         scroll_y = ttk.Scrollbar(Detailsframe, orient=VERTICAL)
-        self.hospital_table = ttk.Treeview(Detailsframe, columns=("NameofTablet", "Reference_NO", "Dose", "NoofTablets ", "LOT", "IssueDate", "ExpireDate", "DailyDose", "NHSNumber", "Storage", "PatientName", "DateofBirth", "Address"), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
+        self.hospital_table = ttk.Treeview(Detailsframe, columns=("NameofTablets", "ReferenceNO", "Dose", "NoofTablets ", "LOT", "IssueDate", "ExpireDate", "DailyDose", "NHSNumber", "Storage", "PatientName", "DateofBirth", "Address"), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
 
         scroll_x.config(command=self.hospital_table.xview)
         scroll_y.config(command=self.hospital_table.yview)
@@ -175,315 +175,68 @@ class HOSPITAL():
         scroll_y.pack(side=RIGHT, fill=Y)
 
         # Insert headings for columns
-        self.hospital_table.heading("NameofTablet", text="Name of Tablets")
+        self.hospital_table.heading("NameofTablets", text="Name of Tablets")
         
-        self.hospital_table.heading("Reference_NO", text="Reference NO:")
+        self.hospital_table.heading("ReferenceNO", text="Reference NO:")
         
         self.hospital_table.heading("Dose", text="Dose")
         
         self.hospital_table.heading("NoofTablets ", text="No of Tablets")
         
         self.hospital_table.heading("LOT", text="LOT")
-        
         self.hospital_table.heading("IssueDate", text="Issue Date")
-        
         self.hospital_table.heading("ExpireDate", text="Expire Date")
-        
         self.hospital_table.heading("DailyDose", text="Daily Dose")
-        
         self.hospital_table.heading("Storage", text="Storage")
-        
         self.hospital_table.heading("NHSNumber", text="NHS Number")
-        
         self.hospital_table.heading("PatientName", text="Patient Name")
-        
         self.hospital_table.heading("DateofBirth", text="Date of Birth")
-        
         self.hospital_table.heading("Address", text="Address")
 
         self.hospital_table["show"] = "headings"
-        
-        self.hospital_table.column("NameofTablet", width=100)
-        
-        self.hospital_table.column("Reference_NO", width=100)
-        
+        self.hospital_table.column("NameofTablets", width=100)
+        self.hospital_table.column("ReferenceNO", width=100)
         self.hospital_table.column("Dose", width=100)
-        
         self.hospital_table.column("NoofTablets ", width=100)
-        
         self.hospital_table.column("LOT", width=100)
-        
         self.hospital_table.column("IssueDate", width=100)
-        
         self.hospital_table.column("ExpireDate", width=100)
-        
         self.hospital_table.column("DailyDose", width=100)
-        
         self.hospital_table.column("Storage", width=100)
-    
         self.hospital_table.column("NHSNumber", width=100)
-        
         self.hospital_table.column("PatientName", width=100)
-        
         self.hospital_table.column("DateofBirth", width=100)
-        
         self.hospital_table.column("Address", width=100)
 
         self.hospital_table.pack(fill=BOTH, expand=1)
         
-        self.hospital_table.bind("<ButtonRelease-1>",self.get_cursor)
-        
-        
-        self.fatch_data()
-        
     def PrescriptionData(self):
-        if self.NameofTablet.get() == "" or self.Reference_NO.get() == "":
+        if self.NameofTablets.get() == "" or self.ReferenceNO.get() == "":
             messagebox.showerror("Error","All fields are required")
         else:
-            try:
-                conn= mysql.connector.connect(host = "localhost", user = "root", password = "test@123", db ="mydata2")
-                my_cursor = conn.cursor()
-                my_cursor.execute("INSERT INTO hospital2(NameofTablet, Reference_NO, Dose, NoofTablets, LOT, IssueDate, ExpireDate, DailyDose, Storage, NHSNumber, PatientName, DateofBirth, Address) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
-                    self.NameofTablet.get(),
-                    
-                    self.Reference_NO.get(),
-                    
-                    self.Dose.get(),
-                    
-                    self.NoofTablets.get(),
-                    
-                    self.LOT.get(),
-                    
-                    self.IssueDate.get(),
-                    
-                    self.ExpireDate.get(),
-                    
-                    self.DailyDose.get(),
-                    
-                    self.Storage.get(),
-                    
-                    self.NHSNumber.get(),
-                    
-                    self.PatientName.get(),
-                    
-                    self.DateofBirth.get(),
-                    
-                    self.Address.get(),        
-                ))
-                
-                conn.commit()
-                
-                self.fatch_data()
-                
-                conn.close()
-                
-                messagebox.showinfo("Success", "Prescription data saved successfully")
-                
-            except mysql.connector.Error as error:
-                
-                messagebox.showerror("Error", f"Failed to insert data into MySQL table: {error}")
-                
-                
-    def update(self):
-        try:
-            conn= mysql.connector.connect(host = "localhost", user = "root", password = "test@123", db ="mydata2")
-            
+            conn= MySQLdb.connect(host = "localhost", user = "root", passwd = "test@123", db ="mydata")
             my_cursor = conn.cursor()
-            
-            my_cursor.execute =("UPDATE hospital2 SET Nameoftablet = %s,Reference_NO = %s Dose = %s NoofTablets = %s LOT= %s IssueDate = %s ExpireDate = %s Storage = %s NHSNumber = %s PatientName = %s DateofBirth = %s Address = %s",(
-                
-                self.NameofTablet.get(),
-                
-                self.Reference_NO.get(),
-                
+            my_cursor.execute("INSERT INTO hospital VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
+                self.NameofTablets.get(),
+                self.ReferenceNO.get(),
                 self.Dose.get(),
-                
                 self.NoofTablets.get(),
-                
                 self.LOT.get(),
-                
                 self.IssueDate.get(),
-                
                 self.ExpireDate.get(),
-                
                 self.DailyDose.get(),
-                
                 self.Storage.get(),
-                
                 self.NHSNumber.get(),
-                
                 self.PatientName.get(),
-                
                 self.DateofBirth.get(),
-                
-                self.Address.get(),      
-                
+                self.Address.get(),        
             ))
             
             conn.commit()
-            
-            self.fatch_data()
-            
             conn.close()
-            
-            messagebox.showinfo("Success", "Data updated successfully")
-            
-        except mysql.connector.Error as error:
-            
-            messagebox.showerror("Error", f"Failed to update data: {error}")
-
-        
-        
-    def fatch_data(self):
-    
-        conn= mysql.connector.connect(host = "localhost", user = "root", password = "test@123", db ="mydata2")
-        
-        my_cursor = conn.cursor()
-        
-        my_cursor.execute("select * from hospital2")
-        
-        rows= my_cursor.fetchall()
-        
-        if len(rows)!=0:
-            
-            self.hospital_table.delete(*self.hospital_table.get_children())
-            
-            for i in rows:
-                
-                self.hospital_table.insert("",END,values=i)
-                
-            conn.commit()
-            
-            conn.close()
-            
-    def get_cursor(self, event = ""):
-        
-        cursor_row = self.hospital_table.focus()
-        
-        content = self.hospital_table.item(cursor_row)
-        
-        row = content["values"]
-        
-        self.NameofTablet.set(row[0])
-        
-        self.Reference_NO.set(row[1])
-        
-        self.Dose.set(row[2])
-        
-        self.NoofTablets.set(row[3])
-        
-        self.LOT.set(row[4])
-        
-        self.IssueDate.set(row[5])
-        
-        self.ExpireDate.set(row[6])
-        
-        self.DailyDose.set(row[7])
-        
-        self.Storage.set(row[8])
-        
-        self.NHSNumber.set(row[9])
-        
-        self.PatientName.set(row[10])
-        
-        self.DateofBirth.set(row[11])
-        
-        self.Address.set(row[12])
-        
-    def Prescription(self):
-        self.txtPrescription.insert(END,"Name of tablet:\t\t\t"+self.NameofTablet.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Reference NO:\t\t\t"+self.Reference_NO.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Dose:\t\t\t"+self.Dose.get()+"\n")
-        
-        self.txtPrescription.insert(END,"No of Tablets:\t\t\t"+self.NoofTablets.get()+"\n")
-        
-        self.txtPrescription.insert(END,"LOT:\t\t\t"+self.LOT.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Issue Date:\t\t\t"+self.IssueDate.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Expire Date:\t\t\t"+self.ExpireDate.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Daily Dose:\t\t\t"+self.DailyDose.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Storage:\t\t\t"+self.Storage.get()+"\n")
-        
-        self.txtPrescription.insert(END,"NHS Number:\t\t\t"+self.NHSNumber.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Patient Name:\t\t\t"+self.PatientName.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Date of Birth:\t\t\t"+self.DateofBirth.get()+"\n")
-        
-        self.txtPrescription.insert(END,"Address:\t\t\t"+self.Address.get()+"\n")
-        
-    def idelete(self):
-        conn= mysql.connector.connect(host = "localhost", user = "root", password = "test@123", db ="mydata2")
-        
-        my_cursor = conn.cursor()
-        
-        query = "delete from hospital2 where Reference_NO = %s"
-        
-        value = (self.Reference_NO.get(),)
-        
-        my_cursor.execute(query,value)
-        
-        conn.commit()
-        
-        conn.close()
-        
-        self.fatch_data()
-        
-        messagebox.showinfo("Delete","Patient has been deleted successfully")
-    
-    
-    def clear(self):
-        
-        self.NameofTablet.set("")
-        
-        self.Reference_NO.set("")
-        
-        self.Dose.set("")
-        
-        self.NoofTablets.set("")
-        
-        self.LOT.set("")
-        
-        self.IssueDate.set("")
-        
-        self.ExpireDate.set("")
-        
-        self.DailyDose.set("")
-        
-        self.SideEffect.set("")
-        
-        self.FutureInfo.set("")
-        
-        self.Storage.set("")
-        
-        self.DrivingUsingMachine.set("")
-        
-        self.HowtoUseMedication.set("")
-        
-        self.PatientId.set("")
-        
-        self.NHSNumber.set("")
-        
-        self.DateofBirth.set("")
-        
-        self.Address.set("")
-        
-        self.txtPrescription.delete("1.0",END)
-        
-        self.NameofTablet.set("")
-        
-    def iExit(self):
-        iExit = messagebox.askyesno(("Hospital Management System", "confirm you want to exit"))
-        if iExit>0:
-            root.destroy()
-            return
-        
 
 root = Tk()
 obj = HOSPITAL(root)
 root.mainloop()
+
+
